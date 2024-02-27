@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -37,18 +34,18 @@ class UserController extends GetxController {
     buttonState.value = ButtonState.loading;
     Future.delayed(const Duration(seconds: 1)).then((value) {
       try {
-        var body = {
-          'nama': namaTextController.text.trim(),
-          'username': usernameTextController.text.trim(),
-          'email': emailTextController.text.trim(),
-          'password': passwordTextController.text.trim(),
-        };
+        // var body = {
+        //   'nama': namaTextController.text.trim(),
+        //   'username': usernameTextController.text.trim(),
+        //   'email': emailTextController.text.trim(),
+        //   'password': passwordTextController.text.trim(),
+        // };
 
-        // log(body as String);
-        buttonState.value = ButtonState.success;
-        Future.delayed(const Duration(seconds: 2)).then((value) {
-          Get.back();
-        });
+        // // log(body as String);
+        // buttonState.value = ButtonState.success;
+        // Future.delayed(const Duration(seconds: 2)).then((value) {
+        //   Get.back();
+        // });
       } catch (e) {
         buttonState.value = ButtonState.fail;
         Get.snackbar('Gagal Ubah Password', '$e');

@@ -46,5 +46,15 @@ class Nav {
       page: () => const StudentScreen(),
       binding: StudentControllerBinding(),
     ),
+    GetPage(
+      name: Routes.SPLASH,
+      page: () => const SplashScreen(),
+      binding: SplashControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.LOGIN,
+      page: () => LoginScreen(),
+      binding: LoginControllerBinding(),
+    ),
   ];
 }

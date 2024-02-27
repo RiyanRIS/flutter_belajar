@@ -1,16 +1,15 @@
-# latihan_getx
+## Belajar getX Flutter
 
-A new Flutter project.
+pake https://pub.dev/packages/get_cli
 
-## Getting Started
+- flutter pub global activate get_cli
+- get create project
+- get init
+- get create screen:home
+- get generate model on list_student with assets/model/student.json
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Modul Student
+- nama_lengkap
+- kelas
+- no_absen
+- tanggal_lahir

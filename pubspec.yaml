@@ -13,6 +13,7 @@ dependencies:
   fancy_password_field: ^2.0.3
   progress_state_button: ^1.0.4
   http: ^1.2.0
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
@@ -21,4 +22,9 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/
+    - assets/logo/
 

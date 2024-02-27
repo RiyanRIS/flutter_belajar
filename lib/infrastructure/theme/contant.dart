@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 var primaryColor = const Color(0xFF0079FB);
 var secondaryColor = const Color(0xFF9FADBC);
@@ -72,3 +73,8 @@ var text24BlackBold = const TextStyle(
     color: Color(0xFF1E1E1E), fontSize: 24, fontWeight: FontWeight.bold);
 var text26WhiteBold = TextStyle(
     color: whiteBackground, fontSize: 26, fontWeight: FontWeight.bold);
+
+OutlineInputBorder defaultOutlineInputBorder = OutlineInputBorder(
+  borderRadius: BorderRadius.circular(14),
+  borderSide: const BorderSide(color: Color(0xFFF3F3F3)),
+);

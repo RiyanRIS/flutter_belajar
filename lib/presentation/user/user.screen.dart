@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:latihan_getx/infrastructure/theme/contant.dart';
-import 'package:progress_state_button/iconed_button.dart';
-import 'package:progress_state_button/progress_button.dart';
 import 'controllers/user.controller.dart';
 
 class UserScreen extends GetView<UserController> {
@@ -163,9 +161,6 @@ class _PasswordFieldState extends State<PasswordField> {
       validator: widget.validator,
       onFieldSubmitted: widget.onFieldSubmitted,
       decoration: InputDecoration(
-        icon: const Icon(Icons.security),
-        border: const UnderlineInputBorder(),
-        filled: true,
         hintText: widget.hintText,
         labelText: widget.labelText,
         helperText: widget.helperText,
