@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:latihan_getx/infrastructure/theme/contant.dart';
 
 import 'infrastructure/navigation/navigation.dart';
@@ -8,6 +9,7 @@ import 'infrastructure/navigation/routes.dart';
 
 void main() async {
   var initialRoute = await Routes.initialRoute;
+  await GetStorage.init();
   runApp(Main(initialRoute));
 }
 

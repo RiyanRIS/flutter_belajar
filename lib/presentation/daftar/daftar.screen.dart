@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 
-import 'controllers/login.controller.dart';
+import 'controllers/daftar.controller.dart';
 
-class LoginScreen extends GetView<LoginController> {
-  const LoginScreen({Key? key}) : super(key: key);
-
+class DaftarScreen extends GetView<DaftarController> {
+  const DaftarScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,16 +18,16 @@ class LoginScreen extends GetView<LoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Text(
-                  'Welcome back, bray!',
+                  'Bergabung Sekarang!',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
                 ),
                 const SizedBox(height: 16),
-                const Text('Login dulu, ready buat nge-todo-list!'),
+                const Text('Mulai petualanganmu bersama kami, ayo gabung!'),
                 const SizedBox(height: 32),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
@@ -69,30 +68,28 @@ class LoginScreen extends GetView<LoginController> {
                       ),
                     ),
                   ),
-                ]),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      // Implement forgot password
-                      Get.defaultDialog(
-                          title: "Informasi",
-                          middleText:
-                              "Tunggu ya, fitur ini akan datang segera");
-
-                      Future.delayed(Duration(seconds: 2)).then((value) =>
-                          Get.snackbar('Hi', 'i am a modern snackbar'));
-                    },
-                    child: const Text(
-                      'Lupa Password?',
-                      style: TextStyle(color: Color(0xFF3D80DE)),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Confirm Password',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const SizedBox(height: 12),
+                  Obx(
+                    () => TextField(
+                      controller: controller.konfirmPasswordTextController,
+                      autocorrect: false,
+                      obscureText: controller.hiddenController.value,
+                      decoration: const InputDecoration(
+                        hintText: "Confirm your password",
+                        border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
-                ),
+                ]),
+                const SizedBox(height: 34),
                 ElevatedButton(
                   onPressed: () {
-                    controller.login(controller.emailTextController.text,
-                        controller.passwordTextController.text);
+                    // aksi daftar
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(
@@ -109,17 +106,16 @@ class LoginScreen extends GetView<LoginController> {
                 const SizedBox(height: 16),
                 RichText(
                   text: TextSpan(
-                    text: "Ga punya akun? ",
+                    text: "Sudah ada akun? ",
                     style: const TextStyle(color: Colors.black),
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'Daftar sini',
+                        text: 'Masuk sekarang',
                         style: const TextStyle(color: Color(0xFF3D80DE)),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Future.delayed(const Duration(milliseconds: 100))
-                                .then(
-                                    (value) => Get.offAllNamed(Routes.DAFTAR));
+                            Future.delayed(const Duration(milliseconds: 100)).then(
+                                (value) => Get.offAllNamed(Routes.LOGIN));
                           },
                       ),
                     ],

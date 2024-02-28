@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:latihan_getx/infrastructure/navigation/routes.dart';
@@ -36,10 +35,9 @@ class SplashScreen extends GetView<SplashController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset('assets/logo/Logo_white.svg'),
                   const Spacer(flex: 14),
                   const Text(
-                    'Anything you want, just right here at all.',
+                    'Welcome bro',
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
@@ -48,7 +46,7 @@ class SplashScreen extends GetView<SplashController> {
                   ),
                   const Spacer(flex: 1),
                   Text(
-                    'Hedon is available to complete your needs but can save your money too',
+                    'Siap-siap buat ngejar target harian dan catat segala keseruan hidupmu. Bikin hari-hari lebih kece, yuk!',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.8),
                     ),
@@ -59,7 +57,7 @@ class SplashScreen extends GetView<SplashController> {
                       Get.toNamed(Routes.LOGIN);
                     },
                     child: const Text(
-                      "Get Started",
+                      "Mulai Yuk",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,

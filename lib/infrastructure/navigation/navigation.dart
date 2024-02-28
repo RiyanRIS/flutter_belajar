@@ -56,5 +56,10 @@ class Nav {
       page: () => LoginScreen(),
       binding: LoginControllerBinding(),
     ),
+    GetPage(
+      name: Routes.DAFTAR,
+      page: () => const DaftarScreen(),
+      binding: DaftarControllerBinding(),
+    ),
   ];
 }

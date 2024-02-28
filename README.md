@@ -13,3 +13,6 @@ pake https://pub.dev/packages/get_cli
 - kelas
 - no_absen
 - tanggal_lahir
+
+#### Todo Belajar
+- get-storage
