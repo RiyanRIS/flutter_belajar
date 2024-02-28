@@ -28,7 +28,7 @@ class LoginScreen extends GetView<LoginController> {
                       ),
                 ),
                 const SizedBox(height: 16),
-                const Text('Login dulu, ready buat nge-todo-list!'),
+                const Text('Login dulu, ready buat nge-todo-list in kamu!'),
                 const SizedBox(height: 32),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
@@ -36,16 +36,17 @@ class LoginScreen extends GetView<LoginController> {
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(height: 12),
-                  TextField(
-                    controller: controller.emailTextController,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your email',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
+                  Obx(() => TextField(
+                        controller: controller.emailTextController,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                            hintText: 'Enter your email',
+                            border: OutlineInputBorder(),
+                            errorText: controller.errorEmail.value.isNotEmpty
+                                ? controller.errorEmail.value
+                                : null),
+                      )),
                   const SizedBox(height: 24),
                   Text(
                     'Password',
@@ -80,7 +81,7 @@ class LoginScreen extends GetView<LoginController> {
                           middleText:
                               "Tunggu ya, fitur ini akan datang segera");
 
-                      Future.delayed(Duration(seconds: 2)).then((value) =>
+                      Future.delayed(const Duration(seconds: 2)).then((value) =>
                           Get.snackbar('Hi', 'i am a modern snackbar'));
                     },
                     child: const Text(
@@ -89,21 +90,28 @@ class LoginScreen extends GetView<LoginController> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    controller.login(controller.emailTextController.text,
-                        controller.passwordTextController.text);
-                  },
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                        const Size(double.infinity, 48)),
-                  ),
-                  child: const Text(
-                    'Masuk',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                Obx(
+                  () => ElevatedButton(
+                    onPressed: () {
+                      controller.login(controller.emailTextController.text,
+                          controller.passwordTextController.text);
+                    },
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(
+                          const Size(double.infinity, 48)),
                     ),
+                    child: controller.isLoading.isTrue
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.0,
+                          )
+                        : const Text(
+                            'Masuk',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 16),

@@ -37,7 +37,7 @@ class SplashScreen extends GetView<SplashController> {
                 children: [
                   const Spacer(flex: 14),
                   const Text(
-                    'Welcome bro',
+                    'Selamat Datang Bro',
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
