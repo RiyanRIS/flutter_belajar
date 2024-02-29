@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 
 import 'controllers/splash.controller.dart';
 
@@ -9,6 +8,7 @@ class SplashScreen extends GetView<SplashController> {
   const SplashScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Get.find<SplashController>();
     return Scaffold(
       body: Stack(
         children: [
@@ -37,7 +37,7 @@ class SplashScreen extends GetView<SplashController> {
                 children: [
                   const Spacer(flex: 14),
                   const Text(
-                    'Selamat Datang Bro',
+                    'Halo...',
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
@@ -52,19 +52,6 @@ class SplashScreen extends GetView<SplashController> {
                     ),
                   ),
                   const Spacer(flex: 2),
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.LOGIN);
-                    },
-                    child: const Text(
-                      "Mulai Yuk",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 2.0,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

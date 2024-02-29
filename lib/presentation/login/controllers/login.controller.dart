@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:latihan_getx/infrastructure/navigation/routes.dart';
+import 'package:latihan_getx/app/data/providers/auth_provider.dart';
+import 'package:latihan_getx/app/validation.dart';
+import 'package:latihan_getx/app/widget.dart';
 
 class LoginController extends GetxController {
   late TextEditingController emailTextController;
@@ -9,13 +11,6 @@ class LoginController extends GetxController {
   var isLoading = false.obs;
   RxString errorEmail = ''.obs;
   RxString errorPass = ''.obs;
-
-  void dialogError(String msg) {
-    Get.defaultDialog(
-      title: "Information",
-      middleText: msg,
-    );
-  }
 
   @override
   void onInit() {
@@ -36,43 +31,58 @@ class LoginController extends GetxController {
     passwordTextController.dispose();
   }
 
-  void emailHandle() {
-    var text = emailTextController.text;
-    if (text.isEmpty) {
-      errorEmail.value = "Email masih kosong";
+  void emailHandle(String value) {
+    if (value.length < 3) {
+      errorEmail.value = "Email too short";
+    } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+        .hasMatch(value)) {
+      errorEmail.value = "Invalid Email";
+    } else {
+      errorEmail.value = "";
+    }
+  }
+
+  void passHandle(String value) {
+    if (value.length < 5) {
+      errorPass.value = "Password too short";
+    } else if (!isValidPassword(value)) {
+      errorPass.value = "Weak password.";
+    } else {
+      errorPass.value = "";
     }
   }
 
   void login(String email, String password) async {
     bool valid = true;
-    errorEmail.value = "";
-    errorPass.value = "";
 
-    if (email.isEmpty) {
+    if (errorEmail.value.isNotEmpty || errorPass.value.isNotEmpty) {
       valid = false;
-      errorEmail.value = "Please enter your email";
-    }
-
-    if (password.isEmpty) {
+      dialogError("Please fill in all required fields");
+    } else if (email.isEmpty || password.isEmpty) {
       valid = false;
-      errorPass.value = "Please enter your password";
-    }
-
-    if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
-        .hasMatch(email)) {
-      valid = false;
-      errorEmail.value = "Please enter a valid email";
+      dialogError("Please fill in all required fields");
     }
 
     if (valid) {
       isLoading.value = true;
       await Future.delayed(const Duration(seconds: 2)).then((value) => {});
-      if (email == "admin@gmail.com" && password == "admin") {
-        Get.offAllNamed(Routes.HOME);
-      } else {
-        isLoading.value = false;
+
+      var body = {"email": email, "password": password};
+
+      AuthProvider auth = AuthProvider();
+      try {
+        var response = await auth.login(body);
+
+        if (response['token'].isNotEmpty) {
+          dialogError("Login successfully");
+        } else {
+          dialogError("No account exists, check your email and password again");
+        }
+
+      } catch (e) {
         dialogError("No account exists, check your email and password again");
       }
     }
+    isLoading.value = false;
   }
 }

@@ -19,9 +19,9 @@ class LoginScreen extends GetView<LoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Text(
-                  'Welcome back, bray!',
+                  'Welcome back!',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -37,12 +37,15 @@ class LoginScreen extends GetView<LoginController> {
                   ),
                   const SizedBox(height: 12),
                   Obx(() => TextField(
+                        onChanged: (value) {
+                          controller.emailHandle(value);
+                        },
                         controller: controller.emailTextController,
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                             hintText: 'Enter your email',
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             errorText: controller.errorEmail.value.isNotEmpty
                                 ? controller.errorEmail.value
                                 : null),
@@ -55,19 +58,25 @@ class LoginScreen extends GetView<LoginController> {
                   const SizedBox(height: 12),
                   Obx(
                     () => TextField(
+                      onChanged: (value) {
+                        controller.passHandle(value);
+                      },
                       controller: controller.passwordTextController,
                       autocorrect: false,
                       obscureText: controller.hiddenController.value,
                       decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () => controller.hiddenController.toggle(),
-                          icon: controller.hiddenController.isTrue
-                              ? const Icon(Icons.remove_red_eye)
-                              : const Icon(Icons.remove_red_eye_outlined),
-                        ),
-                        hintText: "Enter your password",
-                        border: const OutlineInputBorder(),
-                      ),
+                          suffixIcon: IconButton(
+                            onPressed: () =>
+                                controller.hiddenController.toggle(),
+                            icon: controller.hiddenController.isTrue
+                                ? const Icon(Icons.remove_red_eye)
+                                : const Icon(Icons.remove_red_eye_outlined),
+                          ),
+                          hintText: "Enter your password",
+                          border: const OutlineInputBorder(),
+                          errorText: controller.errorPass.value.isNotEmpty
+                              ? controller.errorPass.value
+                              : null),
                     ),
                   ),
                 ]),
@@ -81,8 +90,8 @@ class LoginScreen extends GetView<LoginController> {
                           middleText:
                               "Tunggu ya, fitur ini akan datang segera");
 
-                      Future.delayed(const Duration(seconds: 2)).then((value) =>
-                          Get.snackbar('Hi', 'i am a modern snackbar'));
+                      // Future.delayed(const Duration(seconds: 2)).then((value) =>
+                      //     Get.snackbar('Hi', 'i am a modern snackbar'));
                     },
                     child: const Text(
                       'Lupa Password?',
@@ -90,11 +99,16 @@ class LoginScreen extends GetView<LoginController> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 12),
                 Obx(
                   () => ElevatedButton(
                     onPressed: () {
-                      controller.login(controller.emailTextController.text,
-                          controller.passwordTextController.text);
+                      if (controller.isLoading.value) {
+                        () {};
+                      } else {
+                        controller.login(controller.emailTextController.text,
+                            controller.passwordTextController.text);
+                      }
                     },
                     style: ButtonStyle(
                       minimumSize: MaterialStateProperty.all(

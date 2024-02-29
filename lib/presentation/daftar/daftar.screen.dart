@@ -31,19 +31,47 @@ class DaftarScreen extends GetView<DaftarController> {
                 const SizedBox(height: 32),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
+                    'Name',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const SizedBox(height: 12),
+                  Obx(
+                    () => TextField(
+                        onChanged: (value) {
+                          controller.nameHandle(value);
+                        },
+                        controller: controller.nameTextController,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                            hintText: 'Enter your name',
+                            border: const OutlineInputBorder(),
+                            errorText: controller.errorName.value.isNotEmpty
+                                ? controller.errorName.value
+                                : null)),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
                     'Email',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(height: 12),
-                  TextField(
-                    controller: controller.emailTextController,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your email',
-                      border: OutlineInputBorder(),
-                    ),
+                  Obx(
+                    () => TextField(
+                        onChanged: (value) {
+                          controller.emailHandle(value);
+                        },
+                        controller: controller.emailTextController,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                            hintText: 'Enter your email',
+                            border: const OutlineInputBorder(),
+                            errorText: controller.errorEmail.value.isNotEmpty
+                                ? controller.errorEmail.value
+                                : null)),
                   ),
                   const SizedBox(height: 24),
                   Text(
@@ -53,19 +81,25 @@ class DaftarScreen extends GetView<DaftarController> {
                   const SizedBox(height: 12),
                   Obx(
                     () => TextField(
+                      onChanged: (value) {
+                        controller.passHandle(value);
+                      },
                       controller: controller.passwordTextController,
                       autocorrect: false,
                       obscureText: controller.hiddenController.value,
                       decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () => controller.hiddenController.toggle(),
-                          icon: controller.hiddenController.isTrue
-                              ? const Icon(Icons.remove_red_eye)
-                              : const Icon(Icons.remove_red_eye_outlined),
-                        ),
-                        hintText: "Enter your password",
-                        border: const OutlineInputBorder(),
-                      ),
+                          suffixIcon: IconButton(
+                            onPressed: () =>
+                                controller.hiddenController.toggle(),
+                            icon: controller.hiddenController.isTrue
+                                ? const Icon(Icons.remove_red_eye)
+                                : const Icon(Icons.remove_red_eye_outlined),
+                          ),
+                          hintText: "Enter your password",
+                          border: const OutlineInputBorder(),
+                          errorText: controller.errorPass.value.isNotEmpty
+                              ? controller.errorPass.value
+                              : null),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -76,31 +110,47 @@ class DaftarScreen extends GetView<DaftarController> {
                   const SizedBox(height: 12),
                   Obx(
                     () => TextField(
+                      onChanged: (value) {
+                        controller.passKonfHandle(value);
+                      },
                       controller: controller.konfirmPasswordTextController,
                       autocorrect: false,
                       obscureText: controller.hiddenController.value,
-                      decoration: const InputDecoration(
-                        hintText: "Confirm your password",
-                        border: OutlineInputBorder(),
-                      ),
+                      decoration: InputDecoration(
+                          hintText: "Confirm your password",
+                          border: const OutlineInputBorder(),
+                          errorText: controller.errorKonfPass.value.isNotEmpty
+                              ? controller.errorKonfPass.value
+                              : null),
                     ),
                   ),
                 ]),
                 const SizedBox(height: 34),
-                ElevatedButton(
-                  onPressed: () {
-                    // aksi daftar
-                  },
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                        const Size(double.infinity, 48)),
-                  ),
-                  child: const Text(
-                    'Masuk',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                Obx(
+                  () => ElevatedButton(
+                    onPressed: () {
+                      if (controller.isLoading.value) {
+                        () {};
+                      } else {
+                        controller.signup();
+                      }
+                    },
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(
+                          const Size(double.infinity, 48)),
                     ),
+                    child: controller.isLoading.isTrue
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.0,
+                          )
+                        : const Text(
+                            'Buat akun',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -114,13 +164,14 @@ class DaftarScreen extends GetView<DaftarController> {
                         style: const TextStyle(color: Color(0xFF3D80DE)),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Future.delayed(const Duration(milliseconds: 100)).then(
-                                (value) => Get.offAllNamed(Routes.LOGIN));
+                            Future.delayed(const Duration(milliseconds: 100))
+                                .then((value) => Get.offAllNamed(Routes.LOGIN));
                           },
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: 32),
               ],
             ),
           ),

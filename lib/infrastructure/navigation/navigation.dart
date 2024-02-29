@@ -61,5 +61,10 @@ class Nav {
       page: () => const DaftarScreen(),
       binding: DaftarControllerBinding(),
     ),
+    GetPage(
+      name: Routes.NOINTERNET,
+      page: () => const NointernetScreen(),
+      binding: NointernetControllerBinding(),
+    ),
   ];
 }
