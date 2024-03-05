@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:latihan_getx/app/data/providers/auth_provider.dart';
 import 'package:latihan_getx/app/validation.dart';
 import 'package:latihan_getx/app/widget.dart';
+import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 
 class LoginController extends GetxController {
   late TextEditingController emailTextController;
   late TextEditingController passwordTextController;
+  var rememberMe = true.obs;
   var hiddenController = true.obs;
   var isLoading = false.obs;
   RxString errorEmail = ''.obs;
@@ -65,7 +68,7 @@ class LoginController extends GetxController {
 
     if (valid) {
       isLoading.value = true;
-      await Future.delayed(const Duration(seconds: 2)).then((value) => {});
+      await Future.delayed(const Duration(seconds: 1)).then((value) => {});
 
       var body = {"email": email, "password": password};
 
@@ -74,15 +77,28 @@ class LoginController extends GetxController {
         var response = await auth.login(body);
 
         if (response['token'].isNotEmpty) {
+          final box = GetStorage();
+          if (rememberMe.value) {
+            box.write('dataUser', {
+              'token': response['token'],
+              'name': response['data']['name'],
+              'email': response['data']['email'],
+            });
+          }
           dialogError("Login successfully");
+          toHomePage();
         } else {
           dialogError("No account exists, check your email and password again");
         }
-
       } catch (e) {
         dialogError("No account exists, check your email and password again");
       }
     }
     isLoading.value = false;
+  }
+
+  void toHomePage() {
+    Future.delayed(const Duration(seconds: 2))
+        .then((value) => Get.offAllNamed(Routes.HOME));
   }
 }

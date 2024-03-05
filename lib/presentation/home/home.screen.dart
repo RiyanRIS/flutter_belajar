@@ -15,11 +15,18 @@ class HomeScreen extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Get.toNamed(Routes.STUDENT);
-          },
-          child: const Text('Klik here'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed(Routes.STUDENT);
+              },
+              child: const Text('Klik here'),
+            ),
+            Obx(
+              () => Text(controller.user),
+            )
+          ],
         ),
       ),
     );

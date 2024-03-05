@@ -80,25 +80,43 @@ class LoginScreen extends GetView<LoginController> {
                     ),
                   ),
                 ]),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      // Implement forgot password
-                      Get.defaultDialog(
-                          title: "Informasi",
-                          middleText:
-                              "Tunggu ya, fitur ini akan datang segera");
-
-                      // Future.delayed(const Duration(seconds: 2)).then((value) =>
-                      //     Get.snackbar('Hi', 'i am a modern snackbar'));
-                    },
-                    child: const Text(
-                      'Lupa Password?',
-                      style: TextStyle(color: Color(0xFF3D80DE)),
-                    ),
-                  ),
-                ),
+                const SizedBox(height: 12),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Obx(
+                        () => Row(
+                          children: [
+                            Checkbox(
+                              value: controller.rememberMe.value,
+                              onChanged: (value) {
+                                controller.rememberMe.toggle();
+                              },
+                            ),
+                            const Text(
+                              'Ingat Saya',
+                              style: TextStyle(color: Color(0xFF3D80DE)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {
+                            // Implement forgot password
+                            Get.defaultDialog(
+                                title: "Informasi",
+                                middleText:
+                                    "Tunggu ya, fitur ini akan datang segera");
+                          },
+                          child: const Text(
+                            'Lupa Password?',
+                            style: TextStyle(color: Color(0xFF3D80DE)),
+                          ),
+                        ),
+                      ),
+                    ]),
                 const SizedBox(height: 12),
                 Obx(
                   () => ElevatedButton(
