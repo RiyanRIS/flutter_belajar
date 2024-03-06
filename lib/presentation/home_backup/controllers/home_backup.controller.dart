@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 
-class HomeController extends GetxController {
+class HomeBackupController extends GetxController {
   dynamic userData;
   var user = ''.obs;
   final box = GetStorage();
@@ -33,5 +33,4 @@ class HomeController extends GetxController {
     user.value = userData['name'];
     print(user.value);
   }
-
 }

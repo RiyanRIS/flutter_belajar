@@ -66,5 +66,10 @@ class Nav {
       page: () => const NointernetScreen(),
       binding: NointernetControllerBinding(),
     ),
+    GetPage(
+      name: Routes.HOME_BACKUP,
+      page: () => const HomeBackupScreen(),
+      binding: HomeBackupControllerBinding(),
+    ),
   ];
 }
