@@ -7,9 +7,11 @@ class CategoryWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.svgScr,
+    required this.onPress,
   });
   final String title;
   final String svgScr;
+  final Function onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class CategoryWidget extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: onPress(),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(

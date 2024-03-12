@@ -71,5 +71,10 @@ class Nav {
       page: () => const HomeBackupScreen(),
       binding: HomeBackupControllerBinding(),
     ),
+    GetPage(
+      name: Routes.DETAILS,
+      page: () => const DetailsScreen(),
+      binding: DetailsControllerBinding(),
+    ),
   ];
 }

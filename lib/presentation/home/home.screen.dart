@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:latihan_getx/infrastructure/theme/contant.dart';
+import 'package:latihan_getx/infrastructure/navigation/routes.dart';
+import 'package:latihan_getx/presentation/home/widgets/bottom_navbar.dart';
 import 'package:latihan_getx/presentation/home/widgets/category_card.dart';
 
 import 'controllers/home.controller.dart';
@@ -12,35 +13,8 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var isActive = true;
     return Scaffold(
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-          height: 80,
-          color: Colors.white,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {},
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    SvgPicture.asset(
-                      "assets/icons/calendar.svg",
-                      color: isActive ? kActiveIconColor : kTextColor,
-                    ),
-                    Text(
-                      "Today",
-                      style: TextStyle(
-                          color: isActive ? kActiveIconColor : kTextColor),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+        bottomNavigationBar: const BottomNavbar(),
         body: Stack(
           children: <Widget>[
             Container(
@@ -79,9 +53,9 @@ class HomeScreen extends GetView<HomeController> {
                             .displayMedium
                             ?.copyWith(fontWeight: FontWeight.bold)),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 30),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                      margin: const EdgeInsets.symmetric(vertical: 30),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(29.5),
@@ -100,18 +74,25 @@ class HomeScreen extends GetView<HomeController> {
                         childAspectRatio: .85,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20,
-                        children: const <Widget>[
+                        children: <Widget>[
                           CategoryWidget(
                               title: "Diet Recommendation",
-                              svgScr: "assets/icons/Hamburger.svg"),
+                              svgScr: "assets/icons/Hamburger.svg",
+                              onPress: () {}),
                           CategoryWidget(
                               title: "Kegel Exercises",
-                              svgScr: "assets/icons/Excrecises.svg"),
+                              svgScr: "assets/icons/Excrecises.svg",
+                              onPress: () {}),
                           CategoryWidget(
                               title: "Meditation",
-                              svgScr: "assets/icons/Meditation.svg"),
+                              svgScr: "assets/icons/Meditation.svg",
+                              onPress: () {
+                                Get.to(Routes.DETAILS);
+                              }),
                           CategoryWidget(
-                              title: "Yoga", svgScr: "assets/icons/yoga.svg"),
+                              title: "Yoga",
+                              svgScr: "assets/icons/yoga.svg",
+                              onPress: () {}),
                         ],
                       ),
                     ),
@@ -123,21 +104,3 @@ class HomeScreen extends GetView<HomeController> {
         ));
   }
 }
-
-
-// bottomNavItem(
-//             title: "All Exercises",
-//             svgScr: "assets/icons/gym.svg",
-//             isActive: true,
-//             press: () {},
-//           ),
-//           bottomNavItem(
-//             title: "Settings",
-//             svgScr: "assets/icons/Settings.svg",
-//             press: () {},
-//           ),
-// bottomNavItem(
-//             title: "Today",
-//             svgScr: "assets/icons/calendar.svg",
-//             press: () {},
-//           ),

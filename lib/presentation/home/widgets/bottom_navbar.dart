@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latihan_getx/infrastructure/theme/contant.dart';
 
-
-class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({super.key});
+class BottomNavbar extends StatelessWidget {
+  const BottomNavbar({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +19,18 @@ class BottomNavBar extends StatelessWidget {
           BottomNavItem(
             title: "Today",
             svgScr: "assets/icons/calendar.svg",
-            press: (){},
+            press: () {},
           ),
           BottomNavItem(
-            title: "All Exercises",
+            title: "All Todos",
             svgScr: "assets/icons/gym.svg",
             isActive: true,
-            press: (){},
+            press: () {},
           ),
           BottomNavItem(
             title: "Settings",
             svgScr: "assets/icons/Settings.svg",
-            press: (){},
+            press: () {},
           ),
         ],
       ),
@@ -38,22 +39,23 @@ class BottomNavBar extends StatelessWidget {
 }
 
 class BottomNavItem extends StatelessWidget {
-  final String svgScr;
-  final String title;
-  final Function press;
-  final bool isActive;
   const BottomNavItem({
-    Key? key,
-    this.svgScr = '',
-    this.title = '',
+    super.key,
+    required this.title,
+    required this.svgScr,
     required this.press,
     this.isActive = false,
-  }) : super(key: key);
+  });
+
+  final bool isActive;
+  final String title;
+  final String svgScr;
+  final Function press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {},
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[

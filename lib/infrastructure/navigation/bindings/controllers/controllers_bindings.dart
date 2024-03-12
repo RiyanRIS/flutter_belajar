@@ -1,4 +1,5 @@
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/daftar.controller.binding.dart'; 
+export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/details.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/home.controller.binding.dart';
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/home_backup.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/login.controller.binding.dart'; 

@@ -1,4 +1,5 @@
 export 'package:latihan_getx/presentation/daftar/daftar.screen.dart';
+export 'package:latihan_getx/presentation/details/details.screen.dart';
 export 'package:latihan_getx/presentation/home/home.screen.dart';
 export 'package:latihan_getx/presentation/home_backup/home_backup.screen.dart';
 export 'package:latihan_getx/presentation/login/login.screen.dart';
