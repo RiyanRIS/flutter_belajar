@@ -4,42 +4,18 @@ import 'package:latihan_getx/config.dart';
 
 class AuthProvider extends GetConnect {
   final url = '${CfgBeruang.apiUrl}/';
-  var headers = {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
-  };
 
   Future? register(body) async {
-    var urlRegister = '${url}register';
-    var req = await post(urlRegister, body, headers: headers);
-
-    if (req.isOk) {
-      var res = req.body;
-      return res;
-    } else {
-      var res = req.body;
-      if (res.isNotEmpty) {
-        return res;
-      } else {
-        throw '[Server] An error occurred. Try again later.';
-      }
-    }
+    var urlRegister = '${url}users';
+    var req = await post(urlRegister, body);
+    
+    return req.body;
   }
 
   Future? login(body) async {
-    var urlRegister = '${url}login';
-    var req = await post(urlRegister, body, headers: headers);
+    var urlLogin = '${url}auth/login';
+    var req = await post(urlLogin, body);
 
-    if (req.isOk) {
-      var res = req.body;
-      return res;
-    } else {
-      var res = req.body;
-      if (res.isNotEmpty) {
-        return res;
-      } else {
-        throw '[Server] An error occurred. Try again later.';
-      }
-    }
+    return req.body;
   }
 }

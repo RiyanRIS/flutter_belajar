@@ -103,45 +103,16 @@ class DaftarController extends GetxController {
       await Future.delayed(const Duration(seconds: 2)).then((value) => {});
 
       var body = {
-        'name': nameTxt,
+        'nama': nameTxt,
         'email': emailTxt,
         'password': passwordTxt,
-        'confirm_password': passwordConfirmTxt,
       };
 
       AuthProvider auth = AuthProvider();
       try {
         var respon = await auth.register(body);
-        var errors = respon['errors'];
-        if (errors.isNotEmpty) {
-          Map<String, dynamic> errorMap = {};
-
-          errors.forEach((key, value) {
-            if (value is List) {
-              errorMap[key] =
-                  value.isNotEmpty ? value[0].toString() : 'Unknown error';
-            } else {
-              errorMap[key] = value.toString();
-            }
-          });
-
-          if (errorMap.containsKey('name')) {
-            errorName.value = errorMap['name'];
-          }
-
-          if (errorMap.containsKey('email')) {
-            if (errorEmail.value == 'email sudah ada.') {
-              dialogError(
-                  "Your email already registered. Please log in to continue.");
-              toLoginPage();
-            } else {
-              errorEmail.value = errorMap['email'];
-            }
-          }
-
-          if (errorMap.containsKey('password')) {
-            errorPass.value = errorMap['password'];
-          }
+        if (respon['status'] == 0) {
+          dialogError(respon['message']);
         } else {
           dialogError("Registration successful. Please log in to continue.");
           toLoginPage();

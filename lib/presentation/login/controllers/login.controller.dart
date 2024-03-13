@@ -76,19 +76,20 @@ class LoginController extends GetxController {
       try {
         var response = await auth.login(body);
 
-        if (response['token'].isNotEmpty) {
+        print(response);
+
+        if (response['status'] == 1) {
           final box = GetStorage();
           if (rememberMe.value) {
             box.write('dataUser', {
-              'token': response['token'],
               'name': response['data']['name'],
               'email': response['data']['email'],
             });
           }
-          dialogError("Login successfully");
+          dialogError(response['message']);
           toHomePage();
         } else {
-          dialogError("No account exists, check your email and password again");
+          dialogError(response['message']);
         }
       } catch (e) {
         dialogError("No account exists, check your email and password again");

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:latihan_getx/infrastructure/theme/contant.dart';
@@ -13,8 +14,8 @@ class DetailsScreen extends GetView<DetailsController> {
     var size = MediaQuery.of(context).size;
 
     var isDone;
-      var press;
-      var seassionNum;
+    var press;
+    var seassionNum;
     return Scaffold(
       bottomNavigationBar: BottomNavbar(),
       body: Stack(
@@ -60,67 +61,38 @@ class DetailsScreen extends GetView<DetailsController> {
                     ),
                     SizedBox(
                       width: size.width * .5, // it just take the 50% width
-                      child: SearchBar(),
+                      child: const SearchBar(),
                     ),
                     
                     Wrap(
                       spacing: 20,
                       runSpacing: 20,
                       children: <Widget>[
-                        LayoutBuilder(builder: (context, constraint) {
-      
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(13),
-        child: Container(
-          width: constraint.maxWidth / 2 -
-              10, // constraint.maxWidth provide us the available with for this widget
-          // padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(13),
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 17),
-                blurRadius: 23,
-                spreadRadius: -13,
-                color: kShadowColor,
-              ),
-            ],
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: press,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      height: 42,
-                      width: 43,
-                      decoration: BoxDecoration(
-                        color: isDone ? kBlueColor : Colors.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: kBlueColor),
-                      ),
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: isDone ? Colors.white : kBlueColor,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      "Session $seassionNum",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    });
+                        SeassionCard(
+                          seassionNum: 1,
+                          isDone: true,
+                          press: () {},
+                        ),
+                        SeassionCard(
+                          seassionNum: 2,
+                          press: () {},
+                        ),
+                        SeassionCard(
+                          seassionNum: 3,
+                          press: () {},
+                        ),
+                        SeassionCard(
+                          seassionNum: 4,
+                          press: () {},
+                        ),
+                        SeassionCard(
+                          seassionNum: 5,
+                          press: () {},
+                        ),
+                        SeassionCard(
+                          seassionNum: 6,
+                          press: () {},
+                        ),
                       ],
                     ),
                     SizedBox(height: 20),
@@ -128,8 +100,8 @@ class DetailsScreen extends GetView<DetailsController> {
                       "Meditation",
                       style: Theme.of(context)
                           .textTheme
-                          .title
-                          .copyWith(fontWeight: FontWeight.bold),
+                          .bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 20),
@@ -160,7 +132,7 @@ class DetailsScreen extends GetView<DetailsController> {
                               children: <Widget>[
                                 Text(
                                   "Basic 2",
-                                  style: Theme.of(context).textTheme.subtitle,
+                                  style: Theme.of(context).textTheme.labelSmall,
                                 ),
                                 Text("Start your deepen you practice")
                               ],
@@ -181,5 +153,75 @@ class DetailsScreen extends GetView<DetailsController> {
         ],
       ),
     );
+  }
+}
+
+class SeassionCard extends StatelessWidget {
+  const SeassionCard({
+    super.key,
+    required this.press,
+    this.isDone = false,
+    required this.seassionNum,
+  });
+
+  final Function press;
+  final bool isDone;
+  final int seassionNum;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraint) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(13),
+        child: Container(
+          width: constraint.maxWidth / 2 -
+              10, // constraint.maxWidth provide us the available with for this widget
+          // padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(13),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 17),
+                blurRadius: 23,
+                spreadRadius: -13,
+                color: kShadowColor,
+              ),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: press(),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      height: 42,
+                      width: 43,
+                      decoration: BoxDecoration(
+                        color: isDone ? kBlueColor : Colors.white,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: kBlueColor),
+                      ),
+                      child: Icon(
+                        Icons.play_arrow,
+                        color: isDone ? Colors.white : kBlueColor,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      "Session $seassionNum",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
   }
 }

@@ -47,7 +47,7 @@ class HomeScreen extends GetView<HomeController> {
                         child: SvgPicture.asset("assets/icons/menu.svg"),
                       ),
                     ),
-                    Text("Good Morning \nShishir",
+                    Text("Good Morning \nRiyan Ris",
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
@@ -87,7 +87,7 @@ class HomeScreen extends GetView<HomeController> {
                               title: "Meditation",
                               svgScr: "assets/icons/Meditation.svg",
                               onPress: () {
-                                Get.to(Routes.DETAILS);
+                                Get.toNamed(Routes.DETAILS);
                               }),
                           CategoryWidget(
                               title: "Yoga",
