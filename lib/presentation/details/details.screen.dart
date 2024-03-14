@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:latihan_getx/infrastructure/theme/contant.dart';
-import 'package:latihan_getx/presentation/home/widgets/bottom_navbar.dart';
+import 'package:latihan_getx/app/widgets/bottom_navbar.dart';
 
 import 'controllers/details.controller.dart';
 
@@ -13,16 +13,13 @@ class DetailsScreen extends GetView<DetailsController> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    var isDone;
-    var press;
-    var seassionNum;
     return Scaffold(
       bottomNavigationBar: BottomNavbar(),
       body: Stack(
         children: <Widget>[
           Container(
             height: size.height * .45,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: kBlueLightColor,
               image: DecorationImage(
                 image: AssetImage("assets/images/meditation_bg.png"),
@@ -47,15 +44,15 @@ class DetailsScreen extends GetView<DetailsController> {
                           .displayMedium
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       "3-10 MIN Course",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: size.width * .6, // it just take 60% of total width
-                      child: Text(
+                      child: const Text(
                         "Live happier and healthier by learning the fundamentals of meditation and mindfulness",
                       ),
                     ),
@@ -95,7 +92,7 @@ class DetailsScreen extends GetView<DetailsController> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       "Meditation",
                       style: Theme.of(context)
@@ -104,13 +101,13 @@ class DetailsScreen extends GetView<DetailsController> {
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      padding: EdgeInsets.all(10),
+                      margin: const EdgeInsets.symmetric(vertical: 20),
+                      padding: const EdgeInsets.all(10),
                       height: 90,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(13),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             offset: Offset(0, 17),
                             blurRadius: 23,
@@ -124,7 +121,7 @@ class DetailsScreen extends GetView<DetailsController> {
                           SvgPicture.asset(
                             "assets/icons/Meditation_women_small.svg",
                           ),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -134,12 +131,12 @@ class DetailsScreen extends GetView<DetailsController> {
                                   "Basic 2",
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
-                                Text("Start your deepen you practice")
+                                const Text("Start your deepen you practice")
                               ],
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: SvgPicture.asset("assets/icons/Lock.svg"),
                           ),
                         ],
@@ -180,7 +177,7 @@ class SeassionCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(13),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 offset: Offset(0, 17),
                 blurRadius: 23,
@@ -210,7 +207,7 @@ class SeassionCard extends StatelessWidget {
                         color: isDone ? Colors.white : kBlueColor,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Text(
                       "Session $seassionNum",
                       style: Theme.of(context).textTheme.bodySmall,

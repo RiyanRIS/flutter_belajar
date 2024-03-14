@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 import 'package:latihan_getx/infrastructure/theme/contant.dart';
 
-class BottomNavbar extends StatelessWidget {
+class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
     super.key,
   });
 
   @override
+  State<BottomNavbar> createState() => _BottomNavbarState();
+}
+
+class _BottomNavbarState extends State<BottomNavbar> {
+
+  @override
   Widget build(BuildContext context) {
+    var selectedIndex = 2;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
       height: 80,
@@ -19,18 +28,25 @@ class BottomNavbar extends StatelessWidget {
           BottomNavItem(
             title: "Today",
             svgScr: "assets/icons/calendar.svg",
-            press: () {},
+            isActive: selectedIndex == 1,
+            press: () {
+            },
           ),
           BottomNavItem(
             title: "All Todos",
             svgScr: "assets/icons/gym.svg",
-            isActive: true,
-            press: () {},
+            isActive: selectedIndex == 2,
+            press: () {
+              Get.offNamed(Routes.HOME);
+            },
           ),
           BottomNavItem(
             title: "Settings",
             svgScr: "assets/icons/Settings.svg",
-            press: () {},
+            isActive: selectedIndex == 3,
+            press: () {
+              Get.offNamed(Routes.PENGATURAN);
+            },
           ),
         ],
       ),
@@ -50,12 +66,12 @@ class BottomNavItem extends StatelessWidget {
   final bool isActive;
   final String title;
   final String svgScr;
-  final Function press;
+  final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: press,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[

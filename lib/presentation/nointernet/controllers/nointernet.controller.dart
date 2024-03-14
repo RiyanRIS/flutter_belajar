@@ -1,5 +1,6 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:latihan_getx/config.dart';
 import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 
 class NointernetController extends GetxController {
@@ -20,11 +21,16 @@ class NointernetController extends GetxController {
   }
 
   void cekkoneksi() async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      await Future.delayed(const Duration(seconds: 1)).then((value) => Get.snackbar('Sorry...', 'You\'re still offline, check yout internet connection'));
-    } else {
-      await Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(Routes.LOGIN));
+    const url = '${CfgBeruang.apiUrl}/';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        await Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(Routes.LOGIN));
+      } else {
+        await Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(Routes.NOINTERNET));
+      }
+    } catch (e) {
+      await Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(Routes.NOINTERNET));
     }
   }
 }

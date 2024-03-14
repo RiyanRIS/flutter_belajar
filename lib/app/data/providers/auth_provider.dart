@@ -18,4 +18,11 @@ class AuthProvider extends GetConnect {
 
     return req.body;
   }
+
+  Future? updateProfil(id, body) async {
+    var urlUpdateProfil = '${url}users/$id';
+    var req = await put(urlUpdateProfil, body);
+
+    return req.body;
+  }
 }

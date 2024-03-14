@@ -4,7 +4,10 @@ export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/home
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/home_backup.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/login.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/nointernet.controller.binding.dart'; 
+export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/pengaturan.controller.binding.dart'; 
+export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/profil.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/splash.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/student.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/troubleshoot.controller.binding.dart'; 
+export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/ubahpass.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/user.controller.binding.dart';

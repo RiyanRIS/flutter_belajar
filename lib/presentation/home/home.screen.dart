@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:latihan_getx/infrastructure/navigation/routes.dart';
-import 'package:latihan_getx/presentation/home/widgets/bottom_navbar.dart';
-import 'package:latihan_getx/presentation/home/widgets/category_card.dart';
+import 'package:latihan_getx/app/widgets/bottom_navbar.dart';
+import 'package:latihan_getx/app/widgets/category_card.dart';
 
 import 'controllers/home.controller.dart';
 

@@ -76,16 +76,15 @@ class LoginController extends GetxController {
       try {
         var response = await auth.login(body);
 
-        print(response);
-
         if (response['status'] == 1) {
           final box = GetStorage();
-          if (rememberMe.value) {
+          // if (rememberMe.value) {
             box.write('dataUser', {
-              'name': response['data']['name'],
+              'nama': response['data']['nama'],
               'email': response['data']['email'],
+              '_id': response['data']['_id'],
             });
-          }
+          // }
           dialogError(response['message']);
           toHomePage();
         } else {
