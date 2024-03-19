@@ -91,5 +91,10 @@ class Nav {
       page: () => const UbahpassScreen(),
       binding: UbahpassControllerBinding(),
     ),
+    GetPage(
+      name: Routes.TODO,
+      page: () => const TodoScreen(),
+      binding: TodoControllerBinding(),
+    ),
   ];
 }
