@@ -1,4 +1,19 @@
 import 'package:latihan_getx/app/data/models/todo_model.dart';
+import 'package:latihan_getx/app/data/providers/todo_provider.dart';
+
+TodoProvider todo = TodoProvider();
+
+var getalltodo = todo.getTodos();
+
+Future<void> main() async {
+  // Get the list of todo items
+  final todoItems = await todo.getTodos();
+
+  // Display the list of todo items
+  for (final todoItem in todoItems) {
+    print(todoItem.kegiatan);
+  }
+}
 
 List<TodoItem> todoItems = [
   TodoItem(
