@@ -1,0 +1,14 @@
+{
+  "status": 1,
+  "message": "Berhasil",
+  "data": {
+    "_id": "65fa499b0c430a6056e23d64",
+    "kegiatan": "Belajar JavaScript",
+    "keterangan": "Mempelajari kelas JavaScript",
+    "waktu": "2023-11-14T10:00:00.000Z",
+    "pelaksana": "John Doe",
+    "createdAt": "2024-03-20T02:27:39.666Z",
+    "updatedAt": "2024-03-20T02:29:26.049Z",
+    "__v": 0
+  }
+}

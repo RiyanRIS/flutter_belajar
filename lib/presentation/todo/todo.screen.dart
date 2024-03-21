@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:latihan_getx/presentation/todo/widgets/todo_item.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 import 'controllers/todo.controller.dart';
 
@@ -11,32 +7,38 @@ class TodoScreen extends GetView<TodoController> {
   const TodoScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    initializeDateFormatting('id_ID');
     return Scaffold(
       appBar: AppBar(
         title: const Text('To-Do List'),
         centerTitle: true,
       ),
-      body: ListView.builder(
-        itemCount: todoItems.length,
-        itemBuilder: (context, index) {
-          String formattedTime =
-              DateFormat.yMMMMd('id_ID').format(todoItems[index].waktu);
-          return Card(
-            child: ListTile(
-              title: Text(todoItems[index].kegiatan),
-              subtitle: Text(todoItems[index].keterangan),
-              trailing: Row(
-                mainAxisSize:
-                    MainAxisSize.min, // Control icons' horizontal space
-                children: [
-                  IconButton(icon: const Icon(Icons.edit), onPressed: () => {}),
-                  deleteTodo(context, index)
-                ],
-              ),
-            ),
-          );
-        },
+      body: Obx(
+        () => (controller.isLoading.value)
+            ? const Center(child: CircularProgressIndicator())
+            : controller.todoItems.isEmpty
+                ? const Center(child: Text('Tidak ada data'))
+                : ListView.builder(
+                    itemCount: controller.todoItems.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: ListTile(
+                          title: Text(controller.todoItems[index].kegiatan),
+                          subtitle:
+                              Text(controller.todoItems[index].keterangan),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize
+                                .min, // Control icons' horizontal space
+                            children: [
+                              IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  onPressed: () => {}),
+                              deleteTodo(context, controller.todoItems[index].sId)
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -47,16 +49,20 @@ class TodoScreen extends GetView<TodoController> {
                 title: const Text('Add New To-Do List'),
                 content: Obx(() => Column(
                       children: [
-                        const TextField(
-                          decoration: InputDecoration(
+                        TextField(
+                          controller: controller.kegiatanTextController,
+                          textInputAction: TextInputAction.next,
+                          decoration: const InputDecoration(
                             labelText: 'Nama Kegiatan',
                           ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        const TextField(
-                          decoration: InputDecoration(
+                        TextField(
+                          controller: controller.keteranganTextController,
+                          textInputAction: TextInputAction.next,
+                          decoration: const InputDecoration(
                             labelText: 'Keterangan',
                           ),
                         ),
@@ -66,7 +72,7 @@ class TodoScreen extends GetView<TodoController> {
                         TextField(
                             readOnly: true,
                             controller: TextEditingController(
-                                text: controller.selectedDateTime.value
+                                text: controller.waktuTextController.value
                                         ?.toString() ??
                                     ''),
                             decoration: InputDecoration(
@@ -80,8 +86,10 @@ class TodoScreen extends GetView<TodoController> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const TextField(
-                          decoration: InputDecoration(
+                        TextField(
+                          controller: controller.pelaksanaTextController,
+                          textInputAction: TextInputAction.done,
+                          decoration: const InputDecoration(
                             labelText: 'Pelaksana',
                           ),
                         ),
@@ -97,11 +105,12 @@ class TodoScreen extends GetView<TodoController> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Simpan data to-do list baru
+                      (controller.isLoadingBtn.value)
+                          ? () {}
+                          : controller.simpan();
                       Navigator.pop(context);
-                      // Tambahkan item baru ke list view
                     },
-                    child: const Text('Add'),
+                    child: (controller.isLoadingBtn.value) ? const Text('Adding...') : const Text('Add'),
                   ),
                 ],
               );
@@ -113,7 +122,7 @@ class TodoScreen extends GetView<TodoController> {
     );
   }
 
-  IconButton deleteTodo(BuildContext context, int index) {
+  IconButton deleteTodo(BuildContext context, String item) {
     return IconButton(
       icon: const Icon(Icons.delete),
       onPressed: () => showDialog(
@@ -128,7 +137,7 @@ class TodoScreen extends GetView<TodoController> {
             ),
             TextButton(
               onPressed: () {
-                controller.deleteToDoItem(todoItems[index]);
+                controller.deleteToDoItem(item);
                 Navigator.pop(context);
               },
               child: const Text('Delete'),
