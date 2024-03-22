@@ -35,5 +35,5 @@ class ConfigEnvironments {
 
 class CfgBeruang {
   static const env = "development";
-  static const apiUrl = "http://localhost:8080/api";
+  static const apiUrl = "https://riyanris.my.id/api";
 }

@@ -9,6 +9,7 @@ export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/prof
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/splash.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/student.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/todo.controller.binding.dart'; 
+export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/todo_create.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/troubleshoot.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/ubahpass.controller.binding.dart'; 
 export 'package:latihan_getx/infrastructure/navigation/bindings/controllers/user.controller.binding.dart';

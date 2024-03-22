@@ -14,8 +14,9 @@ class Routes {
   static const PROFIL = '/profil';
   static const SPLASH = '/splash';
   static const STUDENT = '/student';
+  static const TODO = '/todo';
   static const TROUBLESHOOT = '/troubleshoot';
   static const UBAHPASS = '/ubahpass';
   static const USER = '/user';
-  static const TODO = '/todo';
+  static const TODO_CREATE = '/todo-create';
 }

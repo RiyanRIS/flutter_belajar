@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 
 import 'controllers/todo.controller.dart';
 
@@ -23,8 +25,8 @@ class TodoScreen extends GetView<TodoController> {
                       return Card(
                         child: ListTile(
                           title: Text(controller.todoItems[index].kegiatan),
-                          subtitle:
-                              Text(controller.todoItems[index].keterangan),
+                          subtitle: Text(controller.todoItems[index].keterangan,
+                              overflow: TextOverflow.ellipsis),
                           trailing: Row(
                             mainAxisSize: MainAxisSize
                                 .min, // Control icons' horizontal space
@@ -32,7 +34,18 @@ class TodoScreen extends GetView<TodoController> {
                               IconButton(
                                   icon: const Icon(Icons.edit),
                                   onPressed: () => {}),
-                              deleteTodo(context, controller.todoItems[index].sId)
+                              deleteTodo(
+                                  context, controller.todoItems[index].sId)
+                            ],
+                          ),
+                          leading: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.event),
+                              Text(
+                                controller.todoItems[index].waktu.toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
                             ],
                           ),
                         ),
@@ -42,84 +55,90 @@ class TodoScreen extends GetView<TodoController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text('Add New To-Do List'),
-                content: Obx(() => Column(
-                      children: [
-                        TextField(
-                          controller: controller.kegiatanTextController,
-                          textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(
-                            labelText: 'Nama Kegiatan',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextField(
-                          controller: controller.keteranganTextController,
-                          textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(
-                            labelText: 'Keterangan',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextField(
-                            readOnly: true,
-                            controller: TextEditingController(
-                                text: controller.waktuTextController.value
-                                        ?.toString() ??
-                                    ''),
-                            decoration: InputDecoration(
-                              labelText: 'Waktu',
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.calendar_today),
-                                onPressed: () => controller
-                                    .showDateTimePickerDialog(context),
-                              ),
-                            )),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextField(
-                          controller: controller.pelaksanaTextController,
-                          textInputAction: TextInputAction.done,
-                          decoration: const InputDecoration(
-                            labelText: 'Pelaksana',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    )),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      (controller.isLoadingBtn.value)
-                          ? () {}
-                          : controller.simpan();
-                      Navigator.pop(context);
-                    },
-                    child: (controller.isLoadingBtn.value) ? const Text('Adding...') : const Text('Add'),
-                  ),
-                ],
-              );
-            },
-          );
+          Get.toNamed(Routes.TODO_CREATE);
         },
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Future<dynamic> onAdd(BuildContext context) {
+    return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Add New To-Do List'),
+              content: Obx(() => Column(
+                    children: [
+                      TextField(
+                        controller: controller.kegiatanTextController,
+                        textInputAction: TextInputAction.next,
+                        decoration: const InputDecoration(
+                          labelText: 'Nama Kegiatan',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: controller.keteranganTextController,
+                        textInputAction: TextInputAction.next,
+                        decoration: const InputDecoration(
+                          labelText: 'Keterangan',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                          readOnly: true,
+                          controller: TextEditingController(
+                              text: controller.waktuTextController.value
+                                      ?.toString() ??
+                                  ''),
+                          decoration: InputDecoration(
+                            labelText: 'Waktu',
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.calendar_today),
+                              onPressed: () => controller
+                                  .showDateTimePickerDialog(context),
+                            ),
+                          )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: controller.pelaksanaTextController,
+                        textInputAction: TextInputAction.done,
+                        decoration: const InputDecoration(
+                          labelText: 'Pelaksana',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  )),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    (controller.isLoadingBtn.value)
+                        ? () {}
+                        : controller.simpan();
+                    Navigator.pop(context);
+                  },
+                  child: (controller.isLoadingBtn.value)
+                      ? const Text('Adding...')
+                      : const Text('Add'),
+                ),
+              ],
+            );
+          },
+        );
   }
 
   IconButton deleteTodo(BuildContext context, String item) {

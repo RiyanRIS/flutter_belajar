@@ -96,5 +96,10 @@ class Nav {
       page: () => const TodoScreen(),
       binding: TodoControllerBinding(),
     ),
+    GetPage(
+      name: Routes.TODO_CREATE,
+      page: () => const TodoCreateScreen(),
+      binding: TodoCreateControllerBinding(),
+    ),
   ];
 }

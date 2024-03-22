@@ -53,10 +53,10 @@ class Todos {
 
 class TodoItem {
   String sId = '';
-  String kegiatan = '';
-  String keterangan = '';
-  String? waktu;
-  String? pelaksana;
+  late String kegiatan;
+  late String keterangan;
+  late DateTime waktu;
+  late String pelaksana;
   String? createdAt;
   String? updatedAt;
 
@@ -64,8 +64,8 @@ class TodoItem {
       {required this.sId,
       required this.kegiatan,
       required this.keterangan,
-      this.waktu,
-      this.pelaksana,
+      required this.waktu,
+      required this.pelaksana,
       this.createdAt,
       this.updatedAt});
 
@@ -73,7 +73,7 @@ class TodoItem {
     sId = json['_id'];
     kegiatan = json['kegiatan'];
     keterangan = json['keterangan'];
-    waktu = json['waktu'];
+    waktu = DateTime.parse(json['waktu']);
     pelaksana = json['pelaksana'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

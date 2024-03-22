@@ -5,7 +5,7 @@ import 'package:latihan_getx/app/widget.dart';
 import 'package:latihan_getx/presentation/todo/providers/todo_provider.dart';
 import 'package:latihan_getx/presentation/todo/todo_model.dart';
 
-class TodoController extends GetxController {
+class TodoCreateController extends GetxController {
   final Rx<DateTime?> waktuTextController = Rx<DateTime?>(null);
   late TextEditingController kegiatanTextController;
   late TextEditingController keteranganTextController;
@@ -22,7 +22,6 @@ class TodoController extends GetxController {
     kegiatanTextController = TextEditingController();
     keteranganTextController = TextEditingController();
     pelaksanaTextController = TextEditingController();
-    getAllTodoItem();
   }
 
   @override
@@ -38,37 +37,21 @@ class TodoController extends GetxController {
     pelaksanaTextController.dispose();
   }
 
-  void getAllTodoItem() async {
-    todoItems.clear();
-    isLoading.value = true;
-    try {
-      var data = await _todo.getTodos();
-      print(data);
-      data.forEach((element) {
-        TodoItem _item = TodoItem.fromJson(element);
-        todoItems.add(_item);
-      });
-      print(todoItems.map((e) => e.kegiatan));
-    } catch (e) {
-      print(e.toString());
-    }
-    isLoading.value = false;
-  }
-
   void simpan() async {
     bool valid = true;
     String kegiatan = kegiatanTextController.text.trim();
     String keterangan = keteranganTextController.text.trim();
-    DateTime? waktu = waktuTextController.value;
+    String waktu = waktuTextController.toString().trim();
     String pelaksana = pelaksanaTextController.text.trim();
 
-    if(kegiatan.isEmpty || waktu == null || keterangan.isEmpty || pelaksana.isEmpty){
+    if(kegiatan.isEmpty || waktu.isEmpty || keterangan.isEmpty || pelaksana.isEmpty){
       valid = false;
-      dialogError("Please fill in all required fields");
+      dialogError("Please fill in all required fields.");
     }
 
     if(valid){
       isLoadingBtn.value = true;
+      await Future.delayed(const Duration(seconds: 2)).then((value) => {});
 
       var body = {
         'kegiatan': kegiatan, 
@@ -79,10 +62,9 @@ class TodoController extends GetxController {
 
       var respon = await _todo.postTodo(body);
       print(respon);
-      
+
       if(respon['status'] == 1){
         dialogError(respon['message']);
-        getAllTodoItem();
       } else {
         dialogError(respon['message']);
       }
@@ -100,15 +82,4 @@ class TodoController extends GetxController {
     }, currentTime: DateTime.now());
   }
 
-  void deleteToDoItem(item) async {
-    var respon = await _todo.deleteTodo(item);
-      print(respon);
-      
-      if(respon['status'] == 1){
-        dialogError(respon['message']);
-        getAllTodoItem();
-      } else {
-        dialogError(respon['message']);
-      }
-  }
 }

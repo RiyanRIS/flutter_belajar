@@ -24,12 +24,11 @@ class TodoProvider extends GetConnect {
   }
 
   Future postTodo(todo) async {
-    var req = await post(urlTodo, todo);
-
+    final req = await post(urlTodo, todo, headers: {});
     return req.body;
   }
-  Future deleteTodo(String id) async {
 
+  Future deleteTodo(String id) async {
     var req = await delete('$urlTodo/$id');
     return req.body;
   }
