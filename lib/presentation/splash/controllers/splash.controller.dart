@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:latihan_getx/config.dart';
 import 'package:latihan_getx/infrastructure/navigation/routes.dart';
 
 class SplashController extends GetxController {
+  final box = GetStorage();
+
   @override
   void onInit() {
     super.onInit();
@@ -11,8 +14,8 @@ class SplashController extends GetxController {
 
   @override
   void onReady() {
-    cekkoneksi();
     super.onReady();
+    redirectKemana();
   }
 
   @override
@@ -20,17 +23,34 @@ class SplashController extends GetxController {
     super.onClose();
   }
 
-  void cekkoneksi() async {
+  Future<bool> isConnected() async {
     const url = '${CfgBeruang.apiUrl}/';
+
     try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        await Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(Routes.LOGIN));
+      final res = await http.get(Uri.parse(url));
+      if (res.statusCode == 200) {
+        return true;
       } else {
-        await Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(Routes.NOINTERNET));
+        return false;
       }
     } catch (e) {
-      await Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(Routes.NOINTERNET));
+      return false;
     }
+  }
+
+  void redirectKemana() async {
+    await Future.delayed(const Duration(seconds: 2)).then((value) => {});
+    if (cekIsLogin()) {
+      Get.offNamed(Routes.HOME);
+    } else if (await isConnected()) {
+      Get.offNamed(Routes.LOGIN);
+    } else {
+      Get.offNamed(Routes.NOINTERNET);
+    }
+  }
+
+  bool cekIsLogin() {
+    var id = box.read('dataUser')?['_id'];
+    return id != null;
   }
 }

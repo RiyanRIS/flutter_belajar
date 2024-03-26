@@ -68,34 +68,36 @@ class HomeScreen extends GetView<HomeController> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        childAspectRatio: .85,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20,
-                        children: <Widget>[
-                          CategoryWidget(
-                              title: "Diet Recommendation",
-                              svgScr: "assets/icons/Hamburger.svg",
-                              onPress: () {}),
-                          CategoryWidget(
-                              title: "Kegel Exercises",
-                              svgScr: "assets/icons/Excrecises.svg",
-                              onPress: () {}),
-                          CategoryWidget(
-                              title: "Meditation",
-                              svgScr: "assets/icons/Meditation.svg",
-                              onPress: () {
-                                Get.toNamed(Routes.DETAILS);
-                              }),
-                          CategoryWidget(
-                              title: "Yoga",
-                              svgScr: "assets/icons/yoga.svg",
-                              onPress: () {}),
-                        ],
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: GridView.count(
+                    //     crossAxisCount: 2,
+                    //     childAspectRatio: .85,
+                    //     crossAxisSpacing: 20,
+                    //     mainAxisSpacing: 20,
+                    //     children: <Widget>[
+                    //       CategoryWidget(
+                    //           title: "Todo List",
+                    //           svgScr: "assets/icons/Hamburger.svg",
+                    //           onPress: () {
+                    //             Get.toNamed(Routes.TODO);
+                    //           }),
+                    //       CategoryWidget(
+                    //           title: "Kegel Exercises",
+                    //           svgScr: "assets/icons/Excrecises.svg",
+                    //           onPress: () {}),
+                    //       CategoryWidget(
+                    //           title: "Meditation",
+                    //           svgScr: "assets/icons/Meditation.svg",
+                    //           onPress: () {
+                    //             Get.toNamed(Routes.DETAILS);
+                    //           }),
+                    //       CategoryWidget(
+                    //           title: "Yoga",
+                    //           svgScr: "assets/icons/yoga.svg",
+                    //           onPress: () {}),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

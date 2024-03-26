@@ -133,10 +133,15 @@ class LoginScreen extends GetView<LoginController> {
                           const Size(double.infinity, 48)),
                     ),
                     child: controller.isLoading.isTrue
-                        ? const CircularProgressIndicator(
+                        ? Container(
+                          width: 24,
+                          height: 24,
+                          padding: const EdgeInsets.all(2.0),
+                          child: const CircularProgressIndicator(
                             color: Colors.white,
-                            strokeWidth: 2.0,
-                          )
+                            strokeWidth: 3,
+                          ),
+                        )
                         : const Text(
                             'Masuk',
                             style: TextStyle(
